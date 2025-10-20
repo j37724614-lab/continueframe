@@ -1,3 +1,4 @@
+import json
 import math                                                            #引入 Python 內建的數學模組。
 import matplotlib.pyplot as plt                                        #引入 Matplotlib 的繪圖介面模組
 import matplotlib.animation as animation                               #引入 Matplotlib 的動畫模組，用來製作逐幀更新的動畫。
@@ -56,12 +57,19 @@ def synth_pose_four_inputs(theta_L, theta_R, dist_L, dist_R,
     p7 = (wx_L, wy_L)
 
     return [p0,p1,p2,p3,p4,p5,p6,p7]
+# === 1. 從 JSON 讀取資料 ===
+file_path = "/home/jeter/frame/data.json"
+with open(file_path, "r", encoding="utf-8") as f:
+    data = json.load(f)
 
-# === 輸入多組資料 ===
-theta_L_list = [110, 115, 120, 125, 130, 135]
-theta_R_list = [170, 165, 160, 155, 150, 145]
-dist_L_list  = [80, 75, 70, 65, 60, 55]
-dist_R_list  = [90, 85, 80, 75, 70, 65]
+theta_L_list = data["left_torso-arm"]
+theta_R_list = data["right_torso-arm"]
+dist_L_list  = data["left_dist"]
+dist_R_list  = data["right_dist"]
+
+n = min(len(theta_L_list), len(theta_R_list), len(dist_L_list), len(dist_R_list))
+print(f"✅ 已讀取 {n} 幀資料，準備生成動畫。")
+
 
 # === 視覺化設定 ===
 connections = [(0,1),(0,4),(4,6),(1,5),(5,7),(0,2),(1,3),(2,3)]
