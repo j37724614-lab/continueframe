@@ -130,5 +130,5 @@ ani = animation.FuncAnimation(fig, update, frames=num_frames, interval=600, blit
 plt.show()
 
 # 另存為 mp4
-ani.save("skeleton_sequence.mp4", writer="ffmpeg", fps=2)
+ani.save("skeleton_sequence.mp4", writer="ffmpeg", fps=29)
 print("✅ 動畫已輸出完成：skeleton_sequence.mp4")
